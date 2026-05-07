@@ -35,7 +35,7 @@ def setup_dist(params):
     os.environ['LOCAL_RANK'] = str(local_rank)
     # os.environ['MASTER_ADDR'] = str(args.master_addr)
     # os.environ['MASTER_PORT'] = str(args.master_port)
-    os.environ['NCCL_SOCKET_IFNAME'] = 'hsn0'
+    os.environ['NCCL_SOCKET_IFNAME'] = os.environ.get('NCCL_SOCKET_IFNAME', 'hsn0')
     if os.getenv("SLURM_STEP_NODELIST") is not None:
         os.environ['MASTER_ADDR']  = parse_slurm_nodelist(os.environ["SLURM_STEP_NODELIST"])[0]
 
