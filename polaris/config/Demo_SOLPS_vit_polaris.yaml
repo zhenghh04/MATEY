@@ -1,0 +1,63 @@
+basic_config: &basic_config
+  # Run settings
+  log_to_wandb: !!bool False
+  log_to_screen: !!bool True
+  save_checkpoint: !!bool True
+  checkpoint_save_interval: 10
+  debug_grad: !!bool True
+  true_time: !!bool False
+  num_data_workers: 2
+  enable_amp: !!bool False
+  compile: !!bool False
+  gradient_checkpointing: !!bool False
+  exp_dir: './Dev_SOLPS'
+  log_interval: 1
+  pretrained: !!bool False
+  # Training settings
+  drop_path: 0.1
+  batch_size: 64
+  max_epochs: 10
+  scheduler_epochs: -1
+  epoch_size: 20
+  rescale_gradients: !!bool False
+  optimizer: 'AdamW'
+  scheduler: 'none'
+  warmup_steps: 0
+  learning_rate: 1e-3
+  weight_decay: 1e-3
+  n_states: 15
+  state_names: ['Pressure', 'Vx', 'Vy', 'Density',  'Vx', 'Vy', 'Density', 'Pressure']
+  dt: 1
+  leadtime_max: 10
+  autoregressive: !!bool True
+  supportdata:
+  - input_control_act: !!bool True
+  n_steps: 3
+  enforce_max_steps: !!bool False
+  accum_grad: 1
+  # Model settings
+  model_type: 'vit_all2all'
+  tie_fields: !!bool False
+  embed_dim: 192
+  num_heads: 3
+  processor_blocks: 12
+  tokenizer_heads:
+  - head_name: "tk-2D"
+    patch_size: [[1, 2, 2]]
+  sts_model: !!bool False
+  sts_train: !!bool False
+  bias_type: 'PositionAreaBias'
+  bias_MLP: !!bool True
+  # Data settings
+  augmentation: !!bool False
+  use_all_fields: !!bool True
+  tie_batches: !!bool False
+  extended_names: !!bool False
+  embedding_offset: 0
+  train_data_paths: [
+              ['/eagle/datascience/hzheng/matey/data/train', 'SOLPS2D', '', 'tk-2D'],
+              ]
+  valid_data_paths: [
+              ['/eagle/datascience/hzheng/matey/data/valid', 'SOLPS2D', '', 'tk-2D'],
+              ]
+  append_datasets: []

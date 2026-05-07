@@ -1,0 +1,65 @@
+basic_config: &basic_config
+  # Run settings
+  log_to_screen: !!bool True
+  save_checkpoint: !!bool True
+  checkpoint_save_interval: 1
+  true_time: !!bool False
+  num_data_workers: 2
+  enable_amp: !!bool False
+  compile: !!bool False
+  gradient_checkpointing: !!bool False
+  exp_dir: './Dev_JHUTDB3D_TTMG'
+  log_interval: 1
+  pretrained: !!bool False
+  # Training settings
+  drop_path: 0.1
+  max_epochs: 5
+  scheduler_epochs: -1
+  epoch_size: 10
+  rescale_gradients: !!bool False
+  optimizer: 'AdamW'
+  scheduler: 'cosine'
+  warmup_steps: 5
+  learning_rate: 1e-3
+  weight_decay: 1e-3
+  n_states: 15
+  state_names: ['Pressure', 'Vx', 'Vy', 'Density',  'Vx', 'Vy', 'Density', 'Pressure']
+  dt: 1
+  leadtime_max: 1
+  n_steps: 3
+  enforce_max_steps: !!bool False
+  accum_grad: 1
+  # Model settings
+  model_type: 'turbt'
+  tie_fields: !!bool False
+  embed_dim: 192
+  num_heads: 3
+  processor_blocks: 12
+  tokenizer_heads:
+    - head_name: "tk-3D"
+      patch_size: [[4, 4, 4]]
+  hierarchical:
+      filtersize: 2
+      nlevels: 3
+  notransposed: !!bool False
+  batch_size: 4
+  sp_groupsize: 4
+
+  sts_model: !!bool False
+  sts_train: !!bool False
+  bias_type: 'PositionAreaBias'
+  bias_MLP: !!bool True
+  # Data settings
+  train_val_test: [.8, .1, .1]
+  augmentation: !!bool False
+  use_all_fields: !!bool True
+  tie_batches: !!bool False
+  extended_names: !!bool False
+  embedding_offset: 0
+  train_data_paths: [
+              ['/eagle/datascience/hzheng/matey/toy_data/isotropic1024fine', 'isotropic1024fine', '', "tk-3D"]
+              ]
+  valid_data_paths: [
+              ['/eagle/datascience/hzheng/matey/toy_data/isotropic1024fine', 'isotropic1024fine', '', "tk-3D"],
+              ]
+  append_datasets: []
